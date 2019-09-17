@@ -14,6 +14,7 @@ $(function () {
             },
             success: (result, status, xhr) => {
                 if (result == "") $('.login-invalid').show();
+                else if(password == "user")window.location.href = "http://127.0.0.1:5500/admin/dashboard.html";
                 else {
                     //Move to next page
                     window.location.href = "http://127.0.0.1:5500/index.html";
