@@ -96,3 +96,30 @@ a{
     top: 540px;
     background-color: orange /* Light Black */
   }
+
+  /* Grapgh css */
+
+#chartdiv {
+  width: 100%;
+  height: 500px;
+}
+
+/* Admin graph */
+#chartdiv {
+    width: 100%;
+    height: 500px;
+  }
+
+.subheading{
+    font-size: 20px;
+    background-color: lightgrey;
+    padding: 7px;
+    border: 1px solid lightblue;
+    border-radius: 10px;
+}
+.subheadingPay{
+    font-size: 20px;
+    padding: 7px;
+    border: 1px solid lightblue;
+    border-radius: 20px;
+}

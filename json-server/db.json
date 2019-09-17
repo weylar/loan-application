@@ -3,7 +3,25 @@
     {
       "id": 1,
       "email": "idrisaminu861@gamil.com",
-      "password": "user"
+      "password": "user",
+      "phone": "",
+      "bvn": "",
+      "sex": "Male",
+      "dob": "",
+      "address": "",
+      "state": "Lagos",
+      "marital": "Single",
+      "children": "",
+      "bank": "GTB",
+      "account": "",
+      "nok": "",
+      "relationship": "",
+      "nokAddresss": "",
+      "salary": "",
+      "payDay": "",
+      "employmentDate": "",
+      "employerName": "",
+      "employerAddress": ""
     },
     {
       "email": "Another@gamil.com",
@@ -15,186 +33,9 @@
       "email": "Olayemi",
       "password": "",
       "id": 4
-    },
-    {
-      "name": "",
-      "email": "",
-      "password": "",
-      "id": 5
-    },
-    {
-      "name": "",
-      "email": "",
-      "password": "",
-      "id": 6
-    },
-    {
-      "name": "",
-      "email": "",
-      "password": "",
-      "id": 7
-    },
-    {
-      "name": "",
-      "email": "",
-      "password": "",
-      "id": 8
-    },
-    {
-      "name": "",
-      "email": "",
-      "password": "",
-      "id": 9
-    },
-    {
-      "name": "",
-      "email": "",
-      "password": "",
-      "id": 10
-    },
-    {
-      "name": "",
-      "email": "",
-      "password": "",
-      "id": 11
-    },
-    {
-      "name": "",
-      "email": "",
-      "password": "",
-      "id": 12
-    },
-    {
-      "name": "",
-      "email": "",
-      "password": "",
-      "id": 13
-    },
-    {
-      "name": "",
-      "email": "",
-      "password": "",
-      "id": 14
-    },
-    {
-      "name": "",
-      "email": "",
-      "password": "",
-      "id": 15
-    },
-    {
-      "name": "",
-      "email": "",
-      "password": "",
-      "id": 16
-    },
-    {
-      "name": "",
-      "email": "",
-      "password": "",
-      "id": 17
-    },
-    {
-      "name": "",
-      "email": "",
-      "password": "",
-      "id": 18
-    },
-    {
-      "name": "",
-      "email": "",
-      "password": "",
-      "id": 19
-    },
-    {
-      "name": "",
-      "email": "",
-      "password": "",
-      "id": 20
-    },
-    {
-      "name": "",
-      "email": "",
-      "password": "",
-      "id": 21
-    },
-    {
-      "name": "",
-      "email": "",
-      "password": "",
-      "id": 22
-    },
-    {
-      "name": "",
-      "email": "",
-      "password": "",
-      "id": 23
-    },
-    {
-      "name": "",
-      "email": "",
-      "password": "",
-      "id": 24
-    },
-    {
-      "name": "",
-      "email": "",
-      "password": "",
-      "id": 25
-    },
-    {
-      "name": "",
-      "email": "",
-      "password": "",
-      "id": 26
-    },
-    {
-      "name": "",
-      "email": "",
-      "password": "",
-      "id": 27
-    },
-    {
-      "name": "",
-      "email": "",
-      "password": "",
-      "id": 28
-    },
-    {
-      "name": "",
-      "email": "",
-      "password": "",
-      "id": 29
-    },
-    {
-      "name": "",
-      "email": "",
-      "password": "",
-      "id": 30
-    },
-    {
-      "name": "",
-      "email": "",
-      "password": "",
-      "id": 31
-    },
-    {
-      "name": "",
-      "email": "",
-      "password": "",
-      "id": 32
-    },
-    {
-      "name": "",
-      "email": "",
-      "password": "",
-      "id": 33
-    },
-    {
-      "name": "",
-      "email": "",
-      "password": "",
-      "id": 34
     }
+  ],
+  "loans": [
+    {}
   ]
 }
