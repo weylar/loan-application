@@ -1,0 +1,98 @@
+body{
+    font-family: 'Antic Didone', serif;
+}
+.card {
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    width: 80%;
+    margin: 20px auto; 
+  }
+
+
+a{
+    color: blue;
+}
+  .input-side{
+      background-color: white;
+      padding: 40px;
+  }
+  .image-side{
+      background-image: url(images/loan.jpg);
+      position: relative
+  }
+  .image-blur{
+      position: absolute;
+      top: 40%;
+      color: white;
+  }
+
+  .inputs{
+      margin: 80px;
+  }
+
+  form input, select{
+      border: 1px solid lightblue !important;
+      border-radius: 20px !important;
+  }
+
+  form button{
+      border: 1px solid lightblue !important;
+      border-radius: 20px !important;
+  }
+
+  .card-number{
+      position: absolute;
+      top: 2px;
+  }
+
+  
+ /* Style the links inside the sidenav */
+#mySidenav a {
+    position: absolute; /* Position them relative to the browser window */
+    left: -100px; /* Position them outside of the screen */
+    transition: 0.3s; /* Add transition on hover */
+    padding: 15px; /* 15px padding */
+    width: 130px; /* Set a specific width */
+    text-decoration: none; /* Remove underline */
+    font-size: 20px; /* Increase font size */
+    color: white; /* White text color */
+    border-radius: 0 5px 5px 0;
+    margin: 20px 0; /* Rounded corners on the top right and bottom right side */
+  }
+  
+  #mySidenav a:hover {
+    left: 0; /* On mouse-over, make the elements appear as they should */
+  }
+  
+  /* The about link: 20px from the top with a green background */
+  #dashboard {
+    top: 60px;
+    background-color: #4CAF50;
+  }
+  
+  #inbox {
+    top: 140px;
+    background-color: lightblue /* Blue */
+  }
+  
+  #account {
+    top: 220px;
+    background-color: purple /* Blue */
+  }
+  
+  #make-payment {
+    top: 300px;
+    background-color: #f44336; /* Red */
+  }
+  
+  #new-loan {
+    top: 380px;
+    background-color: blue /* Light Black */
+  }
+  #all-loan {
+    top: 460px;
+    background-color:green /* Light Black */
+  }
+  #transactions {
+    top: 540px;
+    background-color: orange /* Light Black */
+  }
