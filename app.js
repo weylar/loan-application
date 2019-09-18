@@ -1,8 +1,34 @@
 
 $(function () {
+
+    function setCookie(cname, cvalue, exdays) {
+        var d = new Date();
+        d.setTime(d.getTime() + (exdays*24*60*60*1000));
+        var expires = "expires="+ d.toUTCString();
+        document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+      }
+
+      function getCookie(cname) {
+        var name = cname + "=";
+        var decodedCookie = decodeURIComponent(document.cookie);
+        var ca = decodedCookie.split(';');
+        for(var i = 0; i <ca.length; i++) {
+          var c = ca[i];
+          while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+          }
+          if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+          }
+        }
+        return "";
+      }
+      
+     
+      
     /* Login section */
     $('.login-btn').on('click', e => {
-        e.preventDefault
+        e.preventDefault()
         let email = $('.login-email').val();
         let password = $('.login-password').val();
         if (email.length == 0 || password.length == 0) {
@@ -17,19 +43,26 @@ $(function () {
             },
             success: (result, status, xhr) => {
                 if (result == "") $('.login-invalid').show();
-                else if (password == "user") window.location.href = "http://127.0.0.1:5500/admin/dashboard.html";
+                else if (password == "admin" && email == "admin") window.location.href = "http://127.0.0.1:5500/admin/dashboard.html";
                 else {
                     //Move to next page
-                    window.location.href = "http://127.0.0.1:5500/index.html";
+                    setCookie("userId", result[0].id, 1)
+                    setCookie("userName", result[0].name, 1)
+                    window.location.href = "http://127.0.0.1:5500/dashboard.html";
+                    /* Show welcome text */
+                    
                 }
 
             }
         });
     });
 
+    /* Welcome dashboard text */
+    $('.welcome-text').text("Welcome back " + getCookie("userName") + "!")
+
     /* New Loan application */
     $('.request-btn').on('click', (e) => {
-        e.preventDefault;
+        e.preventDefault();
         const bvn = $('.request-bvn').val();
         const sex = $('.request-sex').val();
         const dob = $('.request-dob').val();
@@ -48,15 +81,15 @@ $(function () {
         const employmentDate = $('.request-doe').val();
         const employerName = $('.request-noe').val();
         const employerAddress = $('.request-aoe').val();
-        const object = {
+        var object = {
             bvn: bvn, sex: sex, dob: dob, address: address, state: state, marital: marital, children: children, bank: bank, account: account,
             nok: nok, relationship: relationship, phone: phone, nokAddresss: nokAddresss, salary: salary, payDay: payDay, employmentDate: employmentDate,
             employerName: employerName, employerAddress: employerAddress
         }
         for (let key in object) {
             if (object.hasOwnProperty(key)) {
-                if (oject[key].length == 0) {
-                    return;
+                if (object[key].length == 0) {
+                    //  return;
                 }
             }
         }
@@ -66,9 +99,9 @@ $(function () {
             type: "PATCH",
             contentType: "application/json",
             success: (result, status, xhr) => {
-                  $('.details').hide();
-                  $('.application').show();
-                }
+                window.location.href = "http://127.0.0.1:5500/calculate.html";
+
+            }
 
         });
 
@@ -78,11 +111,11 @@ $(function () {
         var interest = 10;
         var month = $('.request-month').val();
         var much = $('.request-much').val();
-        var totalInterest = Math.round((( interest / 100) * much)) ;
-        var totalPayment =  Math.round(totalInterest + Number(much));
-        
+        var totalInterest = Math.round(((interest / 100) * much));
+        var totalPayment = Math.round(totalInterest + Number(much));
+
         var monthly = Math.round(totalPayment / month);
-        if(month.length == 0 || much.length == 0 ) return;
+        if (month.length == 0 || much.length == 0) return;
         $('.spinner-border').show();
         setTimeout(() => {
             $('.spinner-border').hide();
@@ -93,23 +126,98 @@ $(function () {
             $('.proceed-btn').hide();
             $('.go-btn').show();
 
-        }, 5000)
-    })
+        }, 2000)
+    });
 
-    $('.go-btn').on('click', (e)=>{
+
+    $('.go-btn').on('click', (e) => {
         e.preventDefault();
-        $('.all-view').hide();
-        $('.submitted-card').show();
+        /* Submit to db */
+        var profileId = getCookie("userId");
+        var interest = 10;
+        var month = $('.request-month').val();
+        var much = $('.request-much').val();
+        var totalInterest = Math.round(((interest / 100) * much));
+        var totalPayment = Math.round(totalInterest + Number(much));
+        var status = "Pending";
+
+        var loan = {
+            profileId: profileId,
+            month: month,
+            much: much,
+            totalInterest: totalInterest,
+            totalPayment: totalPayment,
+            status: status,
+            date: new Date()
+        };
+
+        $.ajax({
+            url: "http://localhost:3000/loans",
+            data: JSON.stringify(loan),
+            type: "POST",
+            contentType: "application/json",
+            success: (result, status, xhr) => {
+                $('.all-view').hide();
+                $('.submitted-card').show();
+
+
+            }
+
+        });
+
 
     })
+
+    /* Account Section */
+    $.ajax({
+        url: "http://localhost:3000/users/"+ getCookie("userId"),
+        type: "GET",
+        contentType: "application/json",
+        error: (xhr, status, error) => { },
+        success: (result, status, xhr) => { 
+            $('.full-name').append(result.name)
+            $('.address').append(result.address)
+            $('.city').append(result.city)
+            $('.state').append(result.state)
+            $('.company').append(result.company)
+            $('.employement-date').append(result.employmentDate)
+            $('.employer-name').append(result.employerName)
+            $('.employer-address').append(result.employerAddress)
+        }
+
+    });
+
+    /* Account Loan Section */
+    $.ajax({
+        url: "http://localhost:3000/loans?profileId=" + getCookie("userId") + "&_sort=date&_order=desc",
+        type: "GET",
+        contentType: "application/json",
+        error: (xhr, status, error) => { },
+        success: (result, status, xhr) => {
+            $(result).each((i, value) => {
+                var state = '<tr>';
+                var tr = "<tr>";
+            $('.account-loan').append(tr + '<td>#' + value.id + '</td>' +
+                    '<td>$' + value.much + '</td>' +
+                     + value.totalInterest +'<td></tr>')
+            })
+           
+
+        }
+
+    });
+
+    /* Account transaction payback section */
+    
+   
 
     /* Register section */
     $('.register-btn').on('click', e => {
-        e.preventDefault;
+        e.preventDefault();
         let name = $('.register-name').val();
         let email = $('.register-email').val();
         let password = $('.register-password').val();
-        var data = { name: name, email: email, password: password }
+        var data = { name: name, email: email, password: password , date: new Date()}
         for (let key in data) {
             if (data.hasOwnProperty(key)) {
                 if (data[key].length == 0) {
@@ -126,6 +234,182 @@ $(function () {
             success: (result, status, xhr) => { }
 
         });
+    });
+
+    function formatDate(date) {
+        var monthNames = [
+            "Jan", "Feb", "Mar",
+            "Apr", "May", "Jun", "Jul",
+            "Aug", "Sep", "Oct",
+            "Nov", "Dec"
+        ];
+
+        var day = date.getDate();
+        var monthIndex = date.getMonth();
+        var year = date.getFullYear();
+
+        return day + '-' + monthNames[monthIndex] + '-' + year;
+    }
+
+
+    var totalApplication = 0;
+    var totalPending = 0;
+    var totalDeclined = 0;
+    var totalGranted = 0;
+    $.ajax({
+        url: "http://localhost:3000/loans?_sort=date&_order=desc",
+        type: "GET",
+        contentType: "application/json",
+        error: (xhr, status, error) => { },
+        success: (result, status, xhr) => {
+            $(result).each((i, value) => {
+                var statement = "";
+                totalApplication++;
+
+                if (value.status == 'Pending') {
+                    statement = '<td>' + value.status + '</td>';
+                    totalPending++;
+                } else if (value.status == 'Declined') {
+                    statement = '<td class="text-danger">' + value.status + '</td>';
+                    totalDeclined++
+
+                } else if (value.status == 'Granted') {
+                    statement = '<td class="text-success">' + value.status + '</td>';
+                    totalGranted++;
+                }
+
+                $('.all-loans-admin').append('<tr class="table-danger" id="2" ><td>#' + value.id +
+                    '</td><td>Mr Ugwu</td><td>$' + value.much +
+                    '</td><td>' + formatDate(new Date(value.date)) + '</td><td>' +
+                    '<button type="button" class="btn btn-success">Access</button>' +
+                    '<button type="button" class="btn btn-danger" style="margin-left: 5px;">Decline</button></td>' +
+                    statement +
+                    '<td><img class="delete-loan" src="/images/delete.png" alt="delete" width="30px"> </td></tr>')
+                // $(this).on('click', e => {
+                //     e.preventDefault();
+                //     alert(this.id)
+                //     $.ajax({
+                //         url: "http://localhost:3000/users/" + $(this).attr('id'),
+                //         type: "DELETE",
+                //         contentType: "application/json",
+                //         error: (xhr, status, error) => { 
+                //             alert(error)
+                //         },
+                //         success: (result, status, xhr) => { 
+                //            alert(result)
+                //         }
+
+                //     });
+
+                // })
+            })
+            $('.admin-total').text(totalApplication)
+            $('.admin-pending').text(totalPending)
+            $('.admin-declined').text(totalDeclined)
+            $('.admin-granted').text(totalGranted)
+        }
+
+    });
+
+
+    /* User loan list */
+    var userTotalApplication = 0;
+    var userTotalPending = 0;
+    var userTotalDeclined = 0;
+
+    $.ajax({
+        url: "http://localhost:3000/loans?profileId=" + getCookie("userId") + "&_sort=date&_order=desc",
+        type: "GET",
+        contentType: "application/json",
+        error: (xhr, status, error) => { },
+        success: (result, status, xhr) => {
+            console.log("Alert");
+
+            $(result).each((i, value) => {
+                var state = '<tr>';
+                var tr = "";
+                var actionDate = "Never";
+                userTotalApplication++;
+
+                if (value.status == 'Pending') {
+                    state = '<td>' + value.status + '</td>';
+                    tr = '<tr>';
+                    userTotalPending++;
+                } else if (value.status == 'Declined') {
+                    state = '<td class="text-danger">' + value.status + '</td>';
+                    tr = '<tr class="table-danger">';
+                    userTotalDeclined++
+
+                } else if (value.status == 'Granted') {
+                    tr = '<tr class="table-success">';
+                    state = '<td class="text-success">' + value.status + '</td>';
+                    userTotalGranted++;
+                }
+
+                if (value.actionDate != "") {
+                    actionDate = formatDate(new Date(value.date));
+                }
+
+                $('.user-loan').append(tr + '<td>#' + value.id + '</td>' +
+                    '<td>$' + value.much + '</td>' +
+                    '<td>' + formatDate(new Date(value.date)) + '</td>' +
+                    state + '<td>' + actionDate + '</td>' +
+                    '<td></tr>')
+
+
+            })
+            $('.user-total').text(userTotalApplication)
+            $('.user-pending').text(userTotalPending)
+            $('.user-declined').text(userTotalDeclined)
+
+        }
+
+    });
+
+    /* Transactions */
+    $.ajax({
+        url: "http://localhost:3000/transactions",
+        type: "GET",
+        contentType: "application/json",
+        error: (xhr, status, error) => { },
+        success: (result, status, xhr) => {
+            $(result).each((i, value) => {
+                var state = '<tr>';
+                var tr = "";
+                var generate = ""
+        
+                if (value.status == 'Pending') {
+                    state = '<td>' + value.status + '</td>';
+                    tr = '<tr>';
+                    generate = ' <td><button disabled type="button" class="btn btn-primary">' + 
+                    '<img src="images/null.png" alt="null" width="15px" style="padding-right: 5px;"> ' +
+                'Generate Receipt</button></td>';
+                   
+                } else if (value.status == 'Failed') {
+                    state = '<td class="text-danger">' + value.status + '</td>';
+                    tr = '<tr class="table-danger">';
+                    generate = ' <td><button type="button" class="btn btn-primary">Generate Receipt</button></td>';
+
+                } else if (value.status == 'Successful') {
+                    tr = '<tr class="table-success">';
+                    state = '<td class="text-success">' + value.status + '</td>';
+                    generate = ' <td><button type="button" class="btn btn-primary">Generate Receipt</button></td>';
+                    
+                }
+
+                
+
+                $('.transaction-list').append(tr + '<td>#' + value.id + '</td>' +
+                    '<td>$' + value.much + '</td>' +
+                    '<td>' + formatDate(new Date(value.date)) + '</td>' +
+                    state + generate + '</tr>')
+
+
+            })
+           
+
+        }
+
     });
 
 
@@ -231,6 +515,8 @@ am4core.ready(function () {
 
 });
 
+/* Pie chart */
+
 /* Admin graph javascript */
 am4core.ready(function () {
 
@@ -293,8 +579,8 @@ am4core.ready(function () {
     categoryAxis.tooltip.disabled = true;
     categoryAxis.renderer.minHeight = 110;
 
-    var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
-    valueAxis.renderer.minWidth = 50;
+    var valueAxi = chart.yAxes.push(new am4charts.ValueAxis());
+    valueAxi.renderer.minWidth = 50;
 
     // Create series
     var series = chart.series.push(new am4charts.ColumnSeries());

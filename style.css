@@ -99,7 +99,8 @@ a{
 
   /* Grapgh css */
 
-#chartdiv {
+
+#chart {
   width: 100%;
   height: 500px;
 }

@@ -30,6 +30,7 @@
     <script src="https://www.amcharts.com/lib/4/charts.js"></script>
     <script src="https://www.amcharts.com/lib/4/themes/dataviz.js"></script>
     <script src="https://www.amcharts.com/lib/4/themes/animated.js"></script>
+    
 </head>
 
 <body>
@@ -62,7 +63,7 @@
     <div class="container" style="margin-left: 130px; margin-top: 20px">
         <p class="display-4">Dashboard</p>
         <hr>
-        <p>Welcome back Aminu!</p>
+        <p class="font-weight-bold welcome-text"></p>
         <div class="card-group">
             <div class="card">
                 <div class="card-body text-center">
@@ -77,7 +78,7 @@
                             </div>
                         </div>
                         <div class="col-md-4">
-                            <p class="font-weight-bolder card-number" style="font-size: 30px;">25</p>
+                            <p class="font-weight-bolder card-number user-total" style="font-size: 30px;"></p>
                         </div>
                     </div>
 
@@ -96,7 +97,7 @@
                             </div>
                         </div>
                         <div class="col-md-4">
-                            <p class="font-weight-bolder card-number" style="font-size: 30px;">5</p>
+                            <p class="font-weight-bolder card-number user-pending" style="font-size: 30px;"></p>
                         </div>
                     </div>
                 </div>
@@ -108,19 +109,20 @@
                             <img class="card-number" src="images/decline.png" alt="">
                         </div>
                         <div class="col-md-4">
-                            <p class="card-text ">Denclined</p>
+                            <p class="card-text ">Declined</p>
                             <div class="progress" style="height:2px">
                                 <div class="progress-bar" style="width:50%;height:2px"></div>
                             </div>
                         </div>
                         <div class="col-md-4">
-                            <p class="font-weight-bolder card-number" style="font-size: 30px;">7</p>
+                            <p class="font-weight-bolder card-number user-declined" style="font-size: 30px;"></p>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
 
+        
         <div id="chart" style="margin-top: 30px"></div>
 
         <!-- Updates -->
