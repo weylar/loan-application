@@ -5,9 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Decaloan</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css?family=Antic+Didone&display=swap" rel="stylesheet">
+    <title>Login | Decaloan</title>
+    
+    <link href="https://fonts.googleapis.com/css?family=Comfortaa&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="stylesheet/style.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
@@ -36,8 +37,8 @@
                     <form>
                         <div class="inputs">
                             <div class="alert alert-danger alert-dismissible login-invalid" style="display: none">
-                                    <button type="button" class="close" data-dismiss="alert">&times;</button>
-                                    Invalid login parameters!</div>
+                                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                                Invalid login parameters!</div>
                             <div class="form-group">
                                 <label for="usr">Email</label>
                                 <input type="text" class="form-control login-email" id="usr" required>
@@ -46,7 +47,13 @@
                                 <label for="pwd">Password</label>
                                 <input type="password" class="form-control login-password" id="pwd" required>
                             </div>
-                            <button type="submit" class="btn btn-primary btn-block login-btn" style="margin-top: 30px;">Login</button>
+
+                            <div class="custom-control custom-checkbox mb-3">
+                                <input type="checkbox" class="custom-control-input" id="remember-login" name="remember-login">
+                                <label class="custom-control-label" for="remember-login">Remember me</label>
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-block login-btn"
+                                style="margin-top: 30px;">Login</button>
                         </div>
                     </form>
 
@@ -68,7 +75,7 @@
         </div>
 
     </div>
-    <script src="app.js"></script>
+    <script src="script/app.js"></script>
 </body>
 
 </html>

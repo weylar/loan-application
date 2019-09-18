@@ -27,19 +27,26 @@ $(function () {
 
     function checkCookie() {
         var user = getCookie("userId");
-        var url = "http://127.0.0.1:5500/login.html";
-        var adminUrl = "http://127.0.0.1:5500/admin/dashboard.html";
+        var rememberEmail = getCookie("email");
+        var rememberPassword = getCookie("password");
+        var url = "http://127.0.0.1:5500//UI/asset/login.html";
+        var adminUrl = "http://127.0.0.1:5500/UI/asset/admin/dashboard.html";
         if (user == "") {
             if (window.location.href != url && window.location.href != adminUrl) {
                 window.location.href = url;
             }
 
         }
+        if (rememberEmail != "") {
+            $('.login-email').val(rememberEmail);
+            $('.login-password').val(rememberPassword);
+        }
     }
 
     function logOut() {
         setCookie("userId", "", 100);
         setCookie("userName", "", 100);
+        
     }
 
     /* Check if user is login */
@@ -59,7 +66,9 @@ $(function () {
         e.preventDefault()
         let email = $('.login-email').val();
         let password = $('.login-password').val();
+        let remember = $('#remember-login').prop("checked");
         if (email.length == 0 || password.length == 0) {
+            $('.login-invalid').show();
             return;
         }
         $.ajax({
@@ -72,14 +81,21 @@ $(function () {
             success: (result, status, xhr) => {
                 if (result == ""){
                     if (password == "admin" && email == "admin") {
-                        window.location.href = "http://127.0.0.1:5500/admin/dashboard.html";
+                        window.location.href = "http://127.0.0.1:5500/UI/asset/admin/dashboard.html";
                     }else{ $('.login-invalid').show();}
                    
                 }else {
                     //Move to next page
                     setCookie("userId", result[0].id, 1)
                     setCookie("userName", result[0].name, 1)
-                    window.location.href = "http://127.0.0.1:5500/dashboard.html";
+                    if (remember == true) {
+                        setCookie("email", email, 1)
+                        setCookie("password", password, 1)
+                    }else{
+                        setCookie("email", "", 1)
+                        setCookie("password", "", 1)
+                    }
+                    window.location.href = "http://127.0.0.1:5500/UI/asset/index.html";
                     
 
                 }
@@ -329,7 +345,7 @@ $(function () {
                     '<button type="button" id=' + "'" + value.id + "'" + ' class="btn btn-success accept-btn">Grant</button>' +
                     '<button type="button" id=' + "'" + value.id + "'" + ' class="btn btn-danger decline-btn" style="margin-left: 5px;">Decline</button></td>' +
                     statement +
-                    '<td><img class="delete-loan"  src="/images/delete.png"  alt="delete" width="30px" id=' + "'" + value.id + "'" + '> </td></tr>')
+                    '<td><img class="delete-loan"  src="../images/delete.png"  alt="delete" width="30px" id=' + "'" + value.id + "'" + '> </td></tr>')
 
 
             })

@@ -1,5 +1,5 @@
 body{
-    font-family: 'Antic Didone', serif;
+  font-family: 'Comfortaa', cursive !important;
 }
 .card {
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
@@ -16,7 +16,7 @@ a{
       padding: 40px;
   }
   .image-side{
-      background-image: url(images/loan.jpg);
+      background-image: url(/UI/asset/images/loan.jpg);
       position: relative
   }
   .image-blur{
