@@ -1,31 +1,59 @@
 
 $(function () {
 
+
     function setCookie(cname, cvalue, exdays) {
         var d = new Date();
-        d.setTime(d.getTime() + (exdays*24*60*60*1000));
-        var expires = "expires="+ d.toUTCString();
+        d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+        var expires = "expires=" + d.toUTCString();
         document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
-      }
+    }
 
-      function getCookie(cname) {
+    function getCookie(cname) {
         var name = cname + "=";
         var decodedCookie = decodeURIComponent(document.cookie);
         var ca = decodedCookie.split(';');
-        for(var i = 0; i <ca.length; i++) {
-          var c = ca[i];
-          while (c.charAt(0) == ' ') {
-            c = c.substring(1);
-          }
-          if (c.indexOf(name) == 0) {
-            return c.substring(name.length, c.length);
-          }
+        for (var i = 0; i < ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0) == ' ') {
+                c = c.substring(1);
+            }
+            if (c.indexOf(name) == 0) {
+                return c.substring(name.length, c.length);
+            }
         }
         return "";
-      }
-      
-     
-      
+    }
+
+    function checkCookie() {
+        var user = getCookie("userId");
+        var url = "http://127.0.0.1:5500/login.html";
+        var adminUrl = "http://127.0.0.1:5500/admin/dashboard.html";
+        if (user == "") {
+            if (window.location.href != url && window.location.href != adminUrl) {
+                window.location.href = url;
+            }
+
+        }
+    }
+
+    function logOut() {
+        setCookie("userId", "", 100);
+        setCookie("userName", "", 100);
+    }
+
+    /* Check if user is login */
+    checkCookie();
+
+
+    /* Logout Secion */
+    $('.logout').on('click', () => {
+        logOut();
+
+    })
+
+    /* Authorization section */
+
     /* Login section */
     $('.login-btn').on('click', e => {
         e.preventDefault()
@@ -39,18 +67,21 @@ $(function () {
             type: "GET",
             contentType: "application/json",
             error: (xhr, status, error) => {
-                alert("Status " + status, "Error " + error)
+
             },
             success: (result, status, xhr) => {
-                if (result == "") $('.login-invalid').show();
-                else if (password == "admin" && email == "admin") window.location.href = "http://127.0.0.1:5500/admin/dashboard.html";
-                else {
+                if (result == ""){
+                    if (password == "admin" && email == "admin") {
+                        window.location.href = "http://127.0.0.1:5500/admin/dashboard.html";
+                    }else{ $('.login-invalid').show();}
+                   
+                }else {
                     //Move to next page
                     setCookie("userId", result[0].id, 1)
                     setCookie("userName", result[0].name, 1)
                     window.location.href = "http://127.0.0.1:5500/dashboard.html";
-                    /* Show welcome text */
                     
+
                 }
 
             }
@@ -170,11 +201,11 @@ $(function () {
 
     /* Account Section */
     $.ajax({
-        url: "http://localhost:3000/users/"+ getCookie("userId"),
+        url: "http://localhost:3000/users/" + getCookie("userId"),
         type: "GET",
         contentType: "application/json",
         error: (xhr, status, error) => { },
-        success: (result, status, xhr) => { 
+        success: (result, status, xhr) => {
             $('.full-name').append(result.name)
             $('.address').append(result.address)
             $('.city').append(result.city)
@@ -183,33 +214,47 @@ $(function () {
             $('.employement-date').append(result.employmentDate)
             $('.employer-name').append(result.employerName)
             $('.employer-address').append(result.employerAddress)
+            $('.registration-date').append(formatDate(new Date(result.registrationDate)))
         }
 
     });
 
     /* Account Loan Section */
     $.ajax({
-        url: "http://localhost:3000/loans?profileId=" + getCookie("userId") + "&_sort=date&_order=desc",
+        url: "http://localhost:3000/loans?profileId=" + getCookie("userId") + "&_sort=id&_order=desc",
         type: "GET",
         contentType: "application/json",
         error: (xhr, status, error) => { },
         success: (result, status, xhr) => {
             $(result).each((i, value) => {
-                var state = '<tr>';
-                var tr = "<tr>";
-            $('.account-loan').append(tr + '<td>#' + value.id + '</td>' +
-                    '<td>$' + value.much + '</td>' +
-                     + value.totalInterest +'<td></tr>')
+                $('.account-loan').append('<tr>' + '<td>#' + value.id + '</td>' +
+                    '<td>$' + value.much + '</td><td>' +
+                    + value.totalInterest + '</td></tr>')
             })
-           
+
 
         }
 
     });
 
     /* Account transaction payback section */
-    
-   
+    $.ajax({
+        url: "http://localhost:3000/transactions?profileId=" + getCookie("userId") + "&_sort=date&_order=desc",
+        type: "GET",
+        contentType: "application/json",
+        error: (xhr, status, error) => { },
+        success: (result, status, xhr) => {
+            $(result).each((i, value) => {
+                $('.account-transaction').append('<tr><td>#' + value.id + '</td>' +
+                    '<td>$' + value.much + '</td><td>' +
+                    formatDate(new Date(value.date)) + '</td></tr>')
+
+            })
+
+
+        }
+
+    });
 
     /* Register section */
     $('.register-btn').on('click', e => {
@@ -217,7 +262,7 @@ $(function () {
         let name = $('.register-name').val();
         let email = $('.register-email').val();
         let password = $('.register-password').val();
-        var data = { name: name, email: email, password: password , date: new Date()}
+        var data = { name: name, email: email, password: password, registrationDate: new Date() }
         for (let key in data) {
             if (data.hasOwnProperty(key)) {
                 if (data[key].length == 0) {
@@ -278,38 +323,64 @@ $(function () {
                     totalGranted++;
                 }
 
-                $('.all-loans-admin').append('<tr class="table-danger" id="2" ><td>#' + value.id +
+                $('.all-loans-admin').append('<tr class="table-danger p"><td>#' + value.id +
                     '</td><td>Mr Ugwu</td><td>$' + value.much +
                     '</td><td>' + formatDate(new Date(value.date)) + '</td><td>' +
-                    '<button type="button" class="btn btn-success">Access</button>' +
-                    '<button type="button" class="btn btn-danger" style="margin-left: 5px;">Decline</button></td>' +
+                    '<button type="button" id=' + "'" + value.id + "'" + ' class="btn btn-success accept-btn">Grant</button>' +
+                    '<button type="button" id=' + "'" + value.id + "'" + ' class="btn btn-danger decline-btn" style="margin-left: 5px;">Decline</button></td>' +
                     statement +
-                    '<td><img class="delete-loan" src="/images/delete.png" alt="delete" width="30px"> </td></tr>')
-                // $(this).on('click', e => {
-                //     e.preventDefault();
-                //     alert(this.id)
-                //     $.ajax({
-                //         url: "http://localhost:3000/users/" + $(this).attr('id'),
-                //         type: "DELETE",
-                //         contentType: "application/json",
-                //         error: (xhr, status, error) => { 
-                //             alert(error)
-                //         },
-                //         success: (result, status, xhr) => { 
-                //            alert(result)
-                //         }
+                    '<td><img class="delete-loan"  src="/images/delete.png"  alt="delete" width="30px" id=' + "'" + value.id + "'" + '> </td></tr>')
 
-                //     });
 
-                // })
             })
+            
             $('.admin-total').text(totalApplication)
             $('.admin-pending').text(totalPending)
             $('.admin-declined').text(totalDeclined)
             $('.admin-granted').text(totalGranted)
+
         }
 
     });
+
+    
+/* Delete Loan here */
+     $(document).on('click', ".delete-loan", e => {
+         e.preventDefault(); 
+        $.ajax({
+            url: "http://localhost:3000/loans/" + $(e.target).attr('id'),
+            type: "DELETE",
+            contentType: "application/json",
+            error: (xhr, status, error) => { },
+            success: (result, status, xhr) => { }
+
+        });
+       
+    }) 
+
+    /* Decline Loan Here */
+    $(document).on('click', ".decline-btn", e => {
+        e.preventDefault(); 
+       $.ajax({
+           url: "http://localhost:3000/loans/" + $(e.target).attr('id'),
+           data: JSON.stringify({status: "Declined"}),
+           type: "PATCH",
+           contentType: "application/json",
+       });
+      
+   }) 
+
+   /* Accept Loan Here */
+   $(document).on('click', ".accept-btn", e => {
+    e.preventDefault(); 
+   $.ajax({
+       url: "http://localhost:3000/loans/" + $(e.target).attr('id'),
+       data: JSON.stringify({status: "Granted"}),
+       type: "PATCH",
+       contentType: "application/json",
+   });
+  
+}) 
 
 
     /* User loan list */
@@ -323,8 +394,6 @@ $(function () {
         contentType: "application/json",
         error: (xhr, status, error) => { },
         success: (result, status, xhr) => {
-            console.log("Alert");
-
             $(result).each((i, value) => {
                 var state = '<tr>';
                 var tr = "";
@@ -377,14 +446,14 @@ $(function () {
                 var state = '<tr>';
                 var tr = "";
                 var generate = ""
-        
+
                 if (value.status == 'Pending') {
                     state = '<td>' + value.status + '</td>';
                     tr = '<tr>';
-                    generate = ' <td><button disabled type="button" class="btn btn-primary">' + 
-                    '<img src="images/null.png" alt="null" width="15px" style="padding-right: 5px;"> ' +
-                'Generate Receipt</button></td>';
-                   
+                    generate = ' <td><button disabled type="button" class="btn btn-primary">' +
+                        '<img src="images/null.png" alt="null" width="15px" style="padding-right: 5px;"> ' +
+                        'Generate Receipt</button></td>';
+
                 } else if (value.status == 'Failed') {
                     state = '<td class="text-danger">' + value.status + '</td>';
                     tr = '<tr class="table-danger">';
@@ -394,10 +463,10 @@ $(function () {
                     tr = '<tr class="table-success">';
                     state = '<td class="text-success">' + value.status + '</td>';
                     generate = ' <td><button type="button" class="btn btn-primary">Generate Receipt</button></td>';
-                    
+
                 }
 
-                
+
 
                 $('.transaction-list').append(tr + '<td>#' + value.id + '</td>' +
                     '<td>$' + value.much + '</td>' +
@@ -406,7 +475,7 @@ $(function () {
 
 
             })
-           
+
 
         }
 

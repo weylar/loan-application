@@ -2,7 +2,7 @@
   "users": [
     {
       "id": 1,
-      "name" : "Aminu Idris",
+      "name": "Aminu Idris",
       "email": "idrisaminu861@gamil.com",
       "password": "user",
       "phone": "08138028915",
@@ -22,7 +22,8 @@
       "payDay": "18",
       "employmentDate": "02/56/1234",
       "employerName": "Mr Apkan",
-      "employerAddress": "Adetola bankole street, Ikoridu, Lagos"
+      "employerAddress": "Adetola bankole street, Ikoridu, Lagos",
+      "registrationDate": "2019-12-17T20:03:05.179Z"
     },
     {
       "email": "Another@gamil.com",
@@ -46,133 +47,16 @@
       "employmentDate": "",
       "employerName": "",
       "employerAddress": ""
-    },
-    {
-      "name": "Kayode Alabi",
-      "email": "Olayemi",
-      "password": "aaaa",
-      "id": 4
     }
   ],
   "loans": [
-    
     {
-      "profileId": "1",
+      "profileId": "",
       "month": "3",
-      "much": "5555",
-      "totalInterest": 556,
-      "totalPayment": 6111,
-      "id": 2
-    },
-    {
-      "profileId": "1",
-      "month": "1",
-      "much": "4",
-      "totalInterest": 0,
-      "totalPayment": 4,
-      "id": 3
-    },
-    {
-      "profileId": "",
-      "month": "2",
-      "much": "33",
-      "totalInterest": 3,
-      "totalPayment": 36,
-      "id": 4
-    },
-    {
-      "profileId": "",
-      "month": "22",
-      "much": "3333",
-      "totalInterest": 333,
-      "totalPayment": 3666,
-      "id": 5
-    },
-    {
-      "profileId": "",
-      "month": "1",
-      "much": "3",
-      "totalInterest": 0,
-      "totalPayment": 3,
-      "id": 6
-    },
-    {
-      "profileId": "",
-      "month": "2",
-      "much": "2",
-      "totalInterest": 0,
-      "totalPayment": 2,
-      "id": 7
-    },
-    {
-      "profileId": "",
-      "month": "1",
-      "much": "6565",
-      "totalInterest": 657,
-      "totalPayment": 7222,
-      "id": 8
-    },
-    {
-      "profileId": "",
-      "month": "1",
-      "much": "22",
-      "totalInterest": 2,
-      "totalPayment": 24,
-      "id": 9
-    },
-    {
-      "profileId": "1",
-      "month": "2",
       "much": "3",
       "totalInterest": 0,
       "totalPayment": 3,
       "status": "Declined",
-      "actionDate" : "",
-      "id": 10
-    },
-    {
-      "profileId": "",
-      "month": "2",
-      "much": "3",
-      "totalInterest": 0,
-      "totalPayment": 3,
-      "status": "Pending",
-      "id": 11
-    },
-    {
-      "profileId": "",
-      "month": "4",
-      "much": "44",
-      "totalInterest": 4,
-      "totalPayment": 48,
-      "status": "Pending",
-      "id": 12
-    },
-    {
-      "profileId": "",
-      "month": "4",
-      "much": "4",
-      "totalInterest": 0,
-      "totalPayment": 4,
-      "status": "Pending",
-      "id": 13
-    },
-    {
-      "profileId": "",
-      "month": "3",
-      "much": "3",
-      "totalInterest": 0,
-      "totalPayment": 3,
-      "status": "Pending",
-      "id": 14
-    },
-    {
-      "profileId": "",
-      "month": "3",
-      "much": "3",
-      "totalInterest": 0,
-      "totalPayment": 3,
-      "status": "Pending",
       "id": 15
     },
     {
@@ -181,7 +65,7 @@
       "much": "333333",
       "totalInterest": 33333,
       "totalPayment": 366666,
-      "status": "Pending",
+      "status": "Declined",
       "id": 16
     },
     {
@@ -294,55 +178,53 @@
       "id": 28
     }
   ],
-  "transactions" : [{
-    "id": 1,
-    "much" : 800,
-    "date" : "2019-09-17T20:03:05.179Z",
-    "status" : "Pending"
-
-  },
-  {
-    "id": 2,
-    "much" : 800,
-    "date" : "2019-06-17T20:03:05.179Z",
-    "status" : "Successful"
-  },
-  {
-    "id": 3,
-    "much" : 800,
-    "date" : "2019-05-17T20:03:05.179Z",
-    "status" : "Failed"
-
-  },
-  {
-    "id": 4,
-    "much" : 800,
-    "date" : "2019-11-17T20:03:05.179Z",
-    "status" : "Successful"
-
-  },
-  {
-    "id": 5,
-    "much" : 800,
-    "date" : "2019-12-17T20:03:05.179Z",
-    "status" : "Successful"
-
-  },
-  {
-    "id": 6,
-    "much" : 800,
-    "date" : "2019-13-17T20:03:05.179Z",
-    "status" : "Pending"
-
-  },
-  {
-    "id": 7,
-    "much" : 800,
-    "date" : "2019-14-17T20:03:05.179Z",
-    "status" : "Failed"
-
-  }
-
-]
+  "transactions": [
+    {
+      "id": 1,
+      "much": 800,
+      "date": "2019-09-17T20:03:05.179Z",
+      "status": "Pending"
+    },
+    {
+      "id": 2,
+      "much": 800,
+      "date": "2019-06-17T20:03:05.179Z",
+      "status": "Successful"
+    },
+    {
+      "id": 3,
+      "profileId": "1",
+      "much": 800,
+      "date": "2019-05-17T20:03:05.179Z",
+      "status": "Failed"
+    },
+    {
+      "id": 4,
+      "profileId": "1",
+      "much": 800,
+      "date": "2019-11-17T20:03:05.179Z",
+      "status": "Successful"
+    },
+    {
+      "id": 5,
+      "profileId": "1",
+      "much": 800,
+      "date": "2019-12-17T20:03:05.179Z",
+      "status": "Successful"
+    },
+    {
+      "id": 6,
+      "profileId": "1",
+      "much": 800,
+      "date": "2019-13-17T20:03:05.179Z",
+      "status": "Pending"
+    },
+    {
+      "id": 7,
+      "profileId": "1",
+      "much": 800,
+      "date": "2019-14-17T20:03:05.179Z",
+      "status": "Failed"
+    }
+  ]
 }
-

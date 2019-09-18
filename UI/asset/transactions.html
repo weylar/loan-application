@@ -46,7 +46,7 @@
             </div>
 
             <li class="nav-item">
-                <a class="nav-link" href="login.html">Logout</a>
+                <a class="nav-link" href="login.html" class="logout"class="logout">Logout</a>
             </li>
         </ul>
     </nav>
@@ -60,62 +60,38 @@
         <a href="transactions.html" id="transactions">Transactions</a>
     </div>
     <div class="container" style="margin-left: 130px; margin-top: 20px">
-        <p class="display-4">Inbox</p>
+        <p class="display-4">Transactions</p>
         <hr>
-        <p>Check for new messages here</p>
        
-
-        <!-- Updates -->
-        <p style="font-size: 30px;  margin-top: 30px">Recent</p>
-        <div class="card" style="width: 100%;">
-            
-            <div class="card-body text-center">
-                <div class="row">
-                    <div class="col-md-2">
-                        <img class="card-number" src="images/cash.png" alt="">
+        <p>See the list of all transactions you have made here. For more detail statements, you can request statement.</p>
+        <!-- Table starts -->
+        <div class="row" style="margin-top: 30px">
+                <div class="input-group mb-3 col-md-10">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Search</span>
                     </div>
-                    <div class="col-md-10">
-                        <p class="font-weight-bolder text-left">Loan Approved!</p>
-                        <p class="text-left" style="padding: 0">Congratulations, your loan request as been approved. You
-                            cvan peoceed to oyur head office to ..</p>
-                        <p class="text-left" style="padding: 0">Today at 4:30PM</p>
-                    </div>
+                    <input type="search" class="form-control">
+                </div>
+                <div class="col-md-2">
+                    <button class="btn btn-primary request-loan"><span class="glyphicon glyphicon-plus"></span>Make Payment</button>
                 </div>
             </div>
-        </div>
-       
-        <div class="card" style="width: 100%">
-            <div class="card-body text-center">
-                <div class="row">
-                    <div class="col-md-2">
-                        <img class="card-number" src="images/cash.png" alt="">
-                    </div>
-                    <div class="col-md-10">
-                        <p class="font-weight-bolder text-left text-danger">Loan Declined!</p>
-                        <p class="text-left" style="padding: 0">Congratulations, your loan request as been approved. You
-                            cvan peoceed to oyur head office to ..</p>
-                        <p class="text-left" style="padding: 0">Today at 4:30PM</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="card" style="width: 100%">
-            <div class="card-body text-center">
-                <div class="row">
-                    <div class="col-md-2">
-                        <img class="card-number" src="images/cash.png" alt="">
-                    </div>
-                    <div class="col-md-10">
-                        <p class="font-weight-bolder text-left text-danger">Loan Declined!</p>
-                        <p class="text-left" style="padding: 0">Congratulations, your loan request as been approved. You
-                            cvan peoceed to oyur head office to ..</p>
-                        <p class="text-left" style="padding: 0">Today at 4:30PM</p>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <table class="table table-hover" >
+                <thead>
+                    <tr>
+                        <th>Transaction #ID</th>
+                        <th>Payback Amount</th>
+                        <th>Date</th>
+                        <th>Status</th>
+                        <th> </th>
+                    </tr>
+                </thead>
+                <tbody class="transaction-list">
+                   
+                </tbody>
+            </table>
     </div>
-    </div>
+    
 
 
 

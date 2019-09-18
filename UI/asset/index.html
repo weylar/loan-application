@@ -9,7 +9,7 @@
     <link href="https://fonts.googleapis.com/css?family=Antic+Didone&display=swap" rel="stylesheet">
     <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
         integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
-    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="stylesheet/style.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
@@ -24,60 +24,61 @@
         crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"
         integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <!-- Grapgh scripts -->
+    <!-- Resources -->
     <script src="https://www.amcharts.com/lib/4/core.js"></script>
     <script src="https://www.amcharts.com/lib/4/charts.js"></script>
     <script src="https://www.amcharts.com/lib/4/themes/dataviz.js"></script>
     <script src="https://www.amcharts.com/lib/4/themes/animated.js"></script>
+    
 </head>
 
 <body>
     <nav class="navbar navbar-expand-sm bg-dark navbar-dark nav justify-content-end">
+
         <ul class="navbar-nav">
             <form class="form-inline">
                 <input class="form-control mr-sm-2" type="text" placeholder="Search">
             </form>
             <div style="margin-top: 7px">
-                <img src="/images/account-icon.png" style="margin: 0 5px" alt="account" width="30px" height="30px">
-                <img src="/images/message.png" style="margin: 0 5px" alt="message" width="30px" height="30px">
-                <img src="/images/alarm.png" style="margin: 0 5px" alt="alarm" width="30px" height="30px">
+                <img src="images/account-icon.png" style="margin: 0 5px" alt="account" width="30px" height="30px">
+                <img src="images/message.png" style="margin: 0 5px" alt="message" width="30px" height="30px">
+                <img src="images/alarm.png" style="margin: 0 5px" alt="alarm" width="30px" height="30px">
             </div>
 
             <li class="nav-item">
-                <a class="nav-link" href="login.html">Logout</a>
+                <a class="nav-link logout" href="login.html" >Logout</a>
             </li>
         </ul>
-
-        <!-- Navbar -->
     </nav>
     <div id="mySidenav" class="sidenav">
-        <a href="dashboard.html" id="dashboard">Dashboard</a>
-        <a href="#" id="inbox">Inbox</a>
-
+        <a href="index.html" id="dashboard">Dashboard</a>
+        <a href="inbox.html" id="inbox">Inbox</a>
+        <a href="#" id="make-payment">Payment</a>
+        <a href="account.html" id="account">Account</a>
+        <a href="new-loan.html" id="new-loan">New Loan</a>
+        <a href="loan.html" id="all-loan">All Loans</a>
+        <a href="transactions.html" id="transactions">Transactions</a>
     </div>
     <div class="container" style="margin-left: 130px; margin-top: 20px">
         <p class="display-4">Dashboard</p>
         <hr>
-        <p class="font-weight-bold">Welcome back Admin!</p>
-
-        <div id="chartdiv" style="margin-top: 30px"></div>
-
-        <!-- Statistics -->
+        <p class="font-weight-bold welcome-text"></p>
         <div class="card-group">
-
             <div class="card">
                 <div class="card-body text-center">
                     <div class="row">
                         <div class="col-md-4">
-                            <img class="card-number" src="/images/cash.png" alt="loan">
+                            <img class="card-number" src="images/cash.png" alt="">
                         </div>
                         <div class="col-md-4">
-                            <p class="card-text ">Total Application</p>
+                            <p class="card-text ">Total Loan</p>
                             <div class="progress" style="height:2px">
                                 <div class="progress-bar" style="width:50%;height:2px"></div>
                             </div>
                         </div>
                         <div class="col-md-4">
-                            <p class="font-weight-bolder card-number admin-total" style="font-size: 30px;"></p>
+                            <p class="font-weight-bolder card-number user-total" style="font-size: 30px;"></p>
                         </div>
                     </div>
 
@@ -87,16 +88,16 @@
                 <div class="card-body text-center">
                     <div class="row">
                         <div class="col-md-4">
-                            <img class="card-number" src="/images/pend.png" alt="pending">
+                            <img class="card-number" src="images/pend.png" alt="">
                         </div>
                         <div class="col-md-4">
-                            <p class="card-text ">Total Pending</p>
+                            <p class="card-text ">Pending</p>
                             <div class="progress" style="height:2px">
                                 <div class="progress-bar" style="width:50%;height:2px"></div>
                             </div>
                         </div>
                         <div class="col-md-4">
-                            <p class="font-weight-bolder card-number admin-pending" style="font-size: 30px;"></p>
+                            <p class="font-weight-bolder card-number user-pending" style="font-size: 30px;"></p>
                         </div>
                     </div>
                 </div>
@@ -105,64 +106,80 @@
                 <div class="card-body text-center">
                     <div class="row">
                         <div class="col-md-4">
-                            <img class="card-number" src="/images/decline.png" alt="decline">
+                            <img class="card-number" src="images/decline.png" alt="">
                         </div>
                         <div class="col-md-4">
-                            <p class="card-text ">Total Decline</p>
+                            <p class="card-text ">Declined</p>
                             <div class="progress" style="height:2px">
                                 <div class="progress-bar" style="width:50%;height:2px"></div>
                             </div>
                         </div>
                         <div class="col-md-4">
-                            <p class="font-weight-bolder card-number admin-declined" style="font-size: 30px;"></p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="card ">
-                <div class="card-body text-center">
-                    <div class="row">
-                        <div class="col-md-4">
-                            <img class="card-number" src="/images/approve.png" alt="approve">
-                        </div>
-                        <div class="col-md-4">
-                            <p class="card-text ">Total Granted</p>
-                            <div class="progress" style="height:2px">
-                                <div class="progress-bar" style="width:50%;height:2px"></div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <p class="font-weight-bolder card-number admin-granted" style="font-size: 30px;"></p>
+                            <p class="font-weight-bolder card-number user-declined" style="font-size: 30px;"></p>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
 
+        
+        <div id="chart" style="margin-top: 30px"></div>
 
-        <!-- Table -->
-        <p style="margin-top: 40px; font-size: 20px">Loan Application</p>
-        <table class="table table-hover admin-loan">
-            <thead>
-                <tr>
-                    <th class="delete-loan">#Loan ID</th>
-                    <th>Name Of Applicant</th>
-                    <th>Amount Request</th>
-                    <th>Date Applied</th>
-                    <th>Action</th>
-                    <th>Status</th>
-                    <th> </th>
-                </tr>
-            </thead>
-            <tbody class="all-loans-admin">
-                
-            </tbody>
-        </table>
+        <!-- Updates -->
+        <p style="font-size: 30px;  margin-top: 30px">Recent</p>
+        <div class="card" style="width: 100%;">
+            
+            <div class="card-body text-center">
+                <div class="row">
+                    <div class="col-md-2">
+                        <img class="card-number" src="images/cash.png" alt="">
+                    </div>
+                    <div class="col-md-10">
+                        <p class="font-weight-bolder text-left">Loan Approved!</p>
+                        <p class="text-left" style="padding: 0">Congratulations, your loan request as been approved. You
+                            cvan peoceed to oyur head office to ..</p>
+                        <p class="text-left" style="padding: 0">Today at 4:30PM</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+       
+        <div class="card" style="width: 100%">
+            <div class="card-body text-center">
+                <div class="row">
+                    <div class="col-md-2">
+                        <img class="card-number" src="images/cash.png" alt="">
+                    </div>
+                    <div class="col-md-10">
+                        <p class="font-weight-bolder text-left text-danger">Loan Declined!</p>
+                        <p class="text-left" style="padding: 0">Congratulations, your loan request as been approved. You
+                            cvan peoceed to oyur head office to ..</p>
+                        <p class="text-left" style="padding: 0">Today at 4:30PM</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card" style="width: 100%">
+            <div class="card-body text-center">
+                <div class="row">
+                    <div class="col-md-2">
+                        <img class="card-number" src="images/cash.png" alt="">
+                    </div>
+                    <div class="col-md-10">
+                        <p class="font-weight-bolder text-left text-danger">Loan Declined!</p>
+                        <p class="text-left" style="padding: 0">Congratulations, your loan request as been approved. You
+                            cvan peoceed to oyur head office to ..</p>
+                        <p class="text-left" style="padding: 0">Today at 4:30PM</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     </div>
 
 
 
-    <script src="/app.js"></script>
+    <script src="app.js"></script>
 </body>
 
 </html>
