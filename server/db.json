@@ -2,6 +2,7 @@
   "users": [
     {
       "id": 1,
+      "isAdmin": false,
       "name": "Aminu Idris",
       "email": "idrisaminu861@gamil.com",
       "password": "user",
@@ -23,12 +24,15 @@
       "employmentDate": "02/56/1234",
       "employerName": "Mr Apkan",
       "employerAddress": "Adetola bankole street, Ikoridu, Lagos",
-      "registrationDate": "2019-12-17T20:03:05.179Z"
+      "registrationDate": "2019-12-17T20:03:05.179Z",
+      "lastSeen": "2019-09-19T15:58:53.931Z"
     },
     {
       "email": "Another@gamil.com",
+      "name": "Another",
       "password": "aaaa",
       "id": 3,
+      "isAdmin": false,
       "bvn": "",
       "sex": "Male",
       "dob": "",
@@ -46,136 +50,269 @@
       "payDay": "",
       "employmentDate": "",
       "employerName": "",
-      "employerAddress": ""
+      "employerAddress": "",
+      "lastSeen": "2019-09-19T14:10:50.646Z"
+    },
+    {
+      "email": "admin@gmail.com",
+      "password": "admin",
+      "isAdmin": true,
+      "id": 4
     }
   ],
   "loans": [
     {
-      "profileId": "",
-      "month": "3",
-      "much": "3",
-      "totalInterest": 0,
-      "totalPayment": 3,
-      "status": "Declined",
-      "id": 15
-    },
-    {
-      "profileId": "",
-      "month": "3",
-      "much": "333333",
-      "totalInterest": 33333,
-      "totalPayment": 366666,
-      "status": "Declined",
-      "id": 16
-    },
-    {
-      "profileId": "",
-      "month": "32",
-      "much": "667",
-      "totalInterest": 67,
-      "totalPayment": 734,
-      "status": "Pending",
-      "id": 17
-    },
-    {
-      "profileId": "",
-      "month": "23",
-      "much": "56",
-      "totalInterest": 6,
-      "totalPayment": 62,
-      "status": "Pending",
-      "id": 18
-    },
-    {
-      "profileId": "",
-      "month": "2",
-      "much": "34",
-      "totalInterest": 3,
-      "totalPayment": 37,
-      "status": "Pending",
-      "id": 19
-    },
-    {
-      "profileId": "",
-      "month": "12",
-      "much": "54",
-      "totalInterest": 5,
-      "totalPayment": 59,
-      "status": "Pending",
-      "id": 20
-    },
-    {
-      "profileId": "",
-      "month": "3",
-      "much": "3",
-      "totalInterest": 0,
-      "totalPayment": 3,
-      "status": "Pending",
-      "id": 21
-    },
-    {
-      "profileId": "",
-      "month": "2",
-      "much": "33",
-      "totalInterest": 3,
-      "totalPayment": 36,
-      "status": "Pending",
-      "id": 22
-    },
-    {
-      "profileId": "",
-      "month": "1",
-      "much": "2",
-      "totalInterest": 0,
-      "totalPayment": 2,
-      "status": "Pending",
-      "id": 23
-    },
-    {
-      "profileId": "",
-      "month": "1",
-      "much": "2",
-      "totalInterest": 0,
-      "totalPayment": 2,
-      "status": "Pending",
-      "id": 24
-    },
-    {
-      "profileId": "",
-      "month": "3",
-      "much": "2",
-      "totalInterest": 0,
-      "totalPayment": 2,
-      "status": "Pending",
-      "id": 25
-    },
-    {
-      "profileId": "",
-      "month": "3",
-      "much": "3",
-      "totalInterest": 0,
-      "totalPayment": 3,
-      "status": "Pending",
-      "id": 26
-    },
-    {
-      "profileId": "",
-      "month": "4454",
-      "much": "354",
-      "totalInterest": 35,
-      "totalPayment": 389,
-      "status": "Pending",
-      "id": 27
-    },
-    {
       "profileId": "3",
+      "name": "Aminu Idris",
       "month": "3",
       "much": "45",
       "totalInterest": 5,
       "totalPayment": 50,
-      "status": "Pending",
+      "status": "Granted",
       "date": "2019-09-17T20:03:05.179Z",
       "id": 28
+    },
+    {
+      "profileId": "1",
+      "name": "Another",
+      "month": "23",
+      "much": "7000",
+      "totalInterest": 700,
+      "totalPayment": 7700,
+      "status": "Granted",
+      "date": "2019-09-18T19:48:37.402Z",
+      "id": 29
+    },
+    {
+      "profileId": "1",
+      "name": "Aminu Idris",
+      "month": "36",
+      "much": "3000000",
+      "totalInterest": 300000,
+      "totalPayment": 3300000,
+      "status": "Granted",
+      "date": "2019-09-18T22:56:22.440Z",
+      "id": 30
+    },
+    {
+      "profileId": "1",
+      "name": "Aminu Idris",
+      "month": "36",
+      "much": "3000000",
+      "totalInterest": 300000,
+      "totalPayment": 3300000,
+      "status": "Declined",
+      "date": "2019-09-18T22:56:22.691Z",
+      "id": 31
+    },
+    {
+      "profileId": "1",
+      "name": "Aminu Idris",
+      "month": "12",
+      "much": "500",
+      "totalInterest": 50,
+      "totalPayment": 550,
+      "status": "Pending",
+      "date": "2019-09-19T08:48:23.182Z",
+      "id": 32
+    },
+    {
+      "profileId": "1",
+      "name": "Aminu Idris",
+      "month": "3",
+      "much": "600",
+      "totalInterest": 60,
+      "totalPayment": 660,
+      "status": "Pending",
+      "date": "2019-09-19T08:50:09.216Z",
+      "id": 33
+    },
+    {
+      "profileId": "1",
+      "name": "Aminu Idris",
+      "month": "2",
+      "much": "700",
+      "totalInterest": 70,
+      "totalPayment": 770,
+      "status": "Pending",
+      "date": "2019-09-19T08:53:01.433Z",
+      "id": 34
+    },
+    {
+      "profileId": "1",
+      "name": "Aminu Idris",
+      "month": "23",
+      "much": "100",
+      "totalInterest": 10,
+      "totalPayment": 110,
+      "status": "Pending",
+      "date": "2019-09-19T08:55:18.846Z",
+      "id": 35
+    },
+    {
+      "profileId": "1",
+      "name": "Aminu Idris",
+      "month": "1",
+      "much": "4",
+      "totalInterest": 0,
+      "totalPayment": 4,
+      "status": "Granted",
+      "date": "2019-09-19T08:58:57.491Z",
+      "id": 36
+    },
+    {
+      "profileId": "1",
+      "name": "Aminu Idris",
+      "month": "12",
+      "much": "125",
+      "totalInterest": 13,
+      "totalPayment": 138,
+      "status": "Pending",
+      "date": "2019-09-19T09:02:14.888Z",
+      "id": 37
+    },
+    {
+      "profileId": "1",
+      "name": "Aminu Idris",
+      "month": "3",
+      "much": "4455",
+      "totalInterest": 446,
+      "totalPayment": 4901,
+      "status": "Pending",
+      "date": "2019-09-19T09:02:57.165Z",
+      "id": 38
+    },
+    {
+      "profileId": "1",
+      "name": "Aminu Idris",
+      "month": "1",
+      "much": "223",
+      "totalInterest": 22,
+      "totalPayment": 245,
+      "status": "Pending",
+      "date": "2019-09-19T09:03:41.125Z",
+      "id": 39
+    },
+    {
+      "profileId": "1",
+      "name": "Aminu Idris",
+      "month": "12",
+      "much": "44",
+      "totalInterest": 4,
+      "totalPayment": 48,
+      "status": "Pending",
+      "date": "2019-09-19T09:03:57.439Z",
+      "id": 40
+    },
+    {
+      "profileId": "1",
+      "name": "Aminu Idris",
+      "month": "1",
+      "much": "34",
+      "totalInterest": 3,
+      "totalPayment": 37,
+      "status": "Pending",
+      "date": "2019-09-19T09:05:42.973Z",
+      "id": 41
+    },
+    {
+      "profileId": "1",
+      "name": "Aminu Idris",
+      "month": "4",
+      "much": "55",
+      "totalInterest": 6,
+      "totalPayment": 61,
+      "status": "Pending",
+      "date": "2019-09-19T09:06:25.713Z",
+      "id": 42
+    },
+    {
+      "profileId": "1",
+      "name": "Aminu Idris",
+      "month": "1",
+      "much": "56",
+      "totalInterest": 6,
+      "totalPayment": 62,
+      "status": "Pending",
+      "date": "2019-09-19T09:12:44.862Z",
+      "id": 43
+    },
+    {
+      "profileId": "1",
+      "name": "Aminu Idris",
+      "month": "2",
+      "much": "45",
+      "totalInterest": 5,
+      "totalPayment": 50,
+      "status": "Pending",
+      "date": "2019-09-19T09:13:15.079Z",
+      "id": 44
+    },
+    {
+      "profileId": "1",
+      "name": "Aminu Idris",
+      "month": "2",
+      "much": "65",
+      "totalInterest": 7,
+      "totalPayment": 72,
+      "status": "Pending",
+      "date": "2019-09-19T09:24:03.824Z",
+      "id": 45
+    },
+    {
+      "profileId": "",
+      "name": "",
+      "month": "33",
+      "much": "45",
+      "totalInterest": 5,
+      "totalPayment": 50,
+      "status": "Pending",
+      "date": "2019-09-19T09:26:01.479Z",
+      "id": 46
+    },
+    {
+      "profileId": "1",
+      "name": "Aminu Idris",
+      "month": "2",
+      "much": "2",
+      "totalInterest": 0,
+      "totalPayment": 2,
+      "status": "Pending",
+      "date": "2019-09-19T10:11:46.338Z",
+      "id": 47
+    },
+    {
+      "profileId": "1",
+      "name": "Aminu Idris",
+      "month": "12",
+      "much": "55",
+      "totalInterest": 6,
+      "totalPayment": 61,
+      "status": "Pending",
+      "date": "2019-09-19T10:21:44.946Z",
+      "id": 48
+    },
+    {
+      "profileId": "1",
+      "name": "Aminu Idris",
+      "month": "44",
+      "much": "34",
+      "totalInterest": 3,
+      "totalPayment": 37,
+      "status": "Granted",
+      "date": "2019-09-19T10:24:08.004Z",
+      "id": 49
+    },
+    {
+      "profileId": "1",
+      "name": "Aminu Idris",
+      "month": "3",
+      "much": "5000",
+      "totalInterest": 500,
+      "totalPayment": 5500,
+      "status": "Pending",
+      "date": "2019-09-19T15:59:22.803Z",
+      "id": 50
     }
   ],
   "transactions": [
@@ -211,20 +348,88 @@
       "much": 800,
       "date": "2019-12-17T20:03:05.179Z",
       "status": "Successful"
+    }
+  ],
+  "notifications": [
+    {
+      "title": "Loan Approved!",
+      "content": "Congratulations, your loan request as been approved. You can peoceed to our head office to process your payment",
+      "date": "2019-09-18T21:01:23.094Z",
+      "id": 1
     },
     {
-      "id": 6,
       "profileId": "1",
-      "much": 800,
-      "date": "2019-13-17T20:03:05.179Z",
-      "status": "Pending"
+      "title": "Loan Declined!",
+      "content": "We are sorry to tell you that your loan request can't be granted at this time. However, ensure to have a more profile.",
+      "date": "2019-09-18T21:02:59.300Z",
+      "id": 2
     },
     {
-      "id": 7,
+      "title": "Loan Approved!",
+      "content": "Congratulations, your loan request as been approved. You can peoceed to our head office to process your payment",
+      "date": "2019-09-18T21:03:34.870Z",
+      "id": 3
+    },
+    {
+      "title": "Loan Approved!",
+      "content": "Congratulations, your loan request as been approved. You can peoceed to our head office to process your payment",
+      "date": "2019-09-18T21:05:10.266Z",
+      "id": 4
+    },
+    {
       "profileId": "1",
-      "much": 800,
-      "date": "2019-14-17T20:03:05.179Z",
-      "status": "Failed"
+      "title": "Loan Declined!",
+      "content": "We are sorry to tell you that your loan request can't be granted at this time. However, ensure to have a more profile.",
+      "date": "2019-09-18T21:05:51.890Z",
+      "id": 5
+    },
+    {
+      "profileId": "1",
+      "title": "Loan Approved!",
+      "content": "Congratulations, your loan request as been approved. You can peoceed to our head office to process your payment",
+      "date": "2019-09-18T21:06:51.590Z",
+      "id": 6
+    },
+    {
+      "profileId": "1",
+      "title": "Loan Approved!",
+      "content": "Congratulations, your loan request as been approved. You can peoceed to our head office to process your payment",
+      "date": "2019-09-18T22:56:55.997Z",
+      "id": 7
+    },
+    {
+      "profileId": "1",
+      "title": "Loan Declined!",
+      "content": "We are sorry to tell you that your loan request can't be granted at this time. However, ensure to have a more profile.",
+      "date": "2019-09-19T08:59:17.552Z",
+      "id": 8
+    },
+    {
+      "profileId": "1",
+      "title": "Loan Declined!",
+      "content": "We are sorry to tell you that your loan request can't be granted at this time. However, ensure to have a more profile.",
+      "date": "2019-09-19T08:59:21.253Z",
+      "id": 9
+    },
+    {
+      "profileId": "1",
+      "title": "Loan Approved!",
+      "content": "Congratulations, your loan request as been approved. You can peoceed to our head office to process your payment",
+      "date": "2019-09-19T09:00:08.340Z",
+      "id": 10
+    },
+    {
+      "profileId": "1",
+      "title": "Loan Approved!",
+      "content": "Congratulations, your loan request as been approved. You can peoceed to our head office to process your payment",
+      "date": "2019-09-19T14:50:39.124Z",
+      "id": 11
+    }
+  ],
+  "settings": [
+    {
+      "id": 1,
+      "interestRate": "120"
     }
   ]
 }
