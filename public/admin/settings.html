@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Admin | Decaloan</title>
+    <link href="https://fonts.googleapis.com/css?family=Comfortaa&display=swap" rel="stylesheet">
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
+        integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <link rel="stylesheet" href="../asset/stylesheet/style.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script src="https://www.amcharts.com/lib/4/core.js"></script>
+    <script src="https://www.amcharts.com/lib/4/charts.js"></script>
+    <script src="https://www.amcharts.com/lib/4/themes/dataviz.js"></script>
+    <script src="https://www.amcharts.com/lib/4/themes/animated.js"></script>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-sm bg-dark navbar-dark nav justify-content-end">
+        <ul class="navbar-nav">
+            <form class="form-inline">
+                <input class="form-control mr-sm-2" type="text" placeholder="Search">
+            </form>
+            <div style="margin-top: 7px">
+                <img src="../asset/images/account-icon.png" style="margin: 0 5px" alt="account" width="30px"
+                    height="30px">
+                <img src="../asset/images/message.png" style="margin: 0 5px" alt="message" width="30px" height="30px">
+                <img src="../asset/images/alarm.png" style="margin: 0 5px" alt="alarm" width="30px" height="30px">
+            </div>
+
+            <li class="nav-item">
+                <a class="nav-link" href="../login.html" class="logout">Logout</a>
+            </li>
+        </ul>
+
+        <!-- Navbar -->
+    </nav>
+    <div id="mySidenav" class="sidenav">
+        <a href="dashboard.html" id="dashboard">Dashboard</a>
+        <a href="users.html" id="users">Users</a>
+        <a href="settings.html" id="settings">Settings</a>
+    </div>
+    <div class="container" style="margin-left: 130px; margin-top: 20px">
+        <p class="display-4">Settings</p>
+        <hr>
+        <p>Make modifications to your database content</p>
+        <div class="container-fluid">
+            <h4 style="margin-top: 20px">Loan</h4>
+            <div class="form-group">
+                <div class="section-define">
+                    <label for="usr">Interest rate</label>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">%</span>
+                        </div>
+                        <input type="number" class="form-control" id="interest-rate" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary settings-btn" style="margin-top: 30px;">Save</button>
+                </div>
+
+
+                <h4 style="margin-top: 50px">Admin</h4>
+                <p>Add new admin</p>
+
+                <div class="section-define">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="usr">Email</label>
+                            <div class="input-group mb-3">
+                                <input type="text" class="form-control" id="new-admin-email" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="usr">Password</label>
+                            <div class="input-group mb-3">
+                                <input type="password" class="form-control" id="new-admin-password" required>
+                            </div>
+                        </div>   
+                    </div>
+                    <button type="submit" class="btn btn-primary new-admin-btn" style="margin-top: 30px;">Save</button>
+                </div>
+
+            </div>
+        </div>
+
+
+
+        <script src="../asset/script/app.js"></script>
+</body>
+
+</html>
