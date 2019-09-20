@@ -1,66 +1,46 @@
 
 $(function () {
-const liveServer = "http://127.0.0.1:3000/";
-var valRate = 0;
+    const liveServer = "http://127.0.0.1:3000/";
+    var valRate = 0;
 
 
-    function setCookie(cname, cvalue, exdays) {
-        var d = new Date();
-        d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
-        var expires = "expires=" + d.toUTCString();
-        document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
-    }
 
-    function getCookie(cname) {
-        var name = cname + "=";
-        var decodedCookie = decodeURIComponent(document.cookie);
-        var ca = decodedCookie.split(';');
-        for (var i = 0; i < ca.length; i++) {
-            var c = ca[i];
-            while (c.charAt(0) == ' ') {
-                c = c.substring(1);
-            }
-            if (c.indexOf(name) == 0) {
-                return c.substring(name.length, c.length);
-            }
-        }
-        return "";
-    }
 
-    function checkCookie() {
-        var user = getCookie("userId");
-        var rememberEmail = getCookie("email");
-        var rememberPassword = getCookie("password");
+    function checkStorage() {
+        var user = localStorage.getItem("userId");
+        var rememberEmail = localStorage.getItem("email");
+        var rememberPassword = localStorage.getItem("password");
         var url = liveServer + "login.html";
-        var adminUrl = liveServer +"admin/dashboard.html";
+        var adminUrl = liveServer + "admin/dashboard.html";
         var registerUrl = liveServer + "register.html";
-        if (user == "") {
-            if (window.location.href != url && window.location.href != adminUrl  && window.location.href != registerUrl ) {
+
+        if (user == null) {
+            if (window.location.href != url && window.location.href != adminUrl && window.location.href != registerUrl) {
                 window.location.href = url;
             }
 
         }
-        if (rememberEmail != "") {
+        if (rememberEmail != null) {
             $('.login-email').val(rememberEmail);
             $('.login-password').val(rememberPassword);
         }
     }
-    
+
     /* Check if user is login */
-    checkCookie();
+    checkStorage();
 
     function logOut() {
-        setCookie("userId", "", 100);
-        setCookie("userName", "", 100);
+        localStorage.removeItem("userId");
+        localStorage.removeItem("userName");
 
     }
 
-var key = [100,['!','@','#','$','%','^','&','*','(',')'], 36]
+    var key = [100, ['!', '@', '#', '$', '%', '^', '&', '*', '(', ')'], 36]
     const encryptPassword = (key, password) => {
         var encryptedPassword = '';
         for (const letter of password) {
             encryptPassword += charCodeAt(letter) + Math.sqrt(key[0]) + key[1][password.indexOf(letter)]
-            
+
         }
     }
 
@@ -93,28 +73,29 @@ var key = [100,['!','@','#','$','%','^','&','*','(',')'], 36]
                         window.location.href = liveServer + "admin/dashboard.html";
                     } else { $('.login-invalid').show(); }
 
-                }else if(result[0].isAdmin == true){
+                } else if (result[0].isAdmin == true) {
                     window.location.href = liveServer + "admin/dashboard.html";
-                    setCookie("userId", result[0].id, 1)
-                    setCookie("userName", result[0].name, 1)
-                } else if(result[0].isAdmin == false){
+                    localStorage.setItem("userId", result[0].id);
+                    localStorage.setItem("userName", result[0].name);
+                } else if (result[0].isAdmin == false) {
                     /* Update last seen */
                     $.ajax({
-                        url: "http://localhost:3000/users/"+ result[0].id,
-                        data: JSON.stringify({lastSeen: new Date()}),
+                        url: "http://localhost:3000/users/" + result[0].id,
+                        data: JSON.stringify({ lastSeen: new Date() }),
                         type: "PATCH",
                         contentType: "application/json",
                     });
-            
+
                     //Move to next page
-                    setCookie("userId", result[0].id, 1)
-                    setCookie("userName", result[0].name, 1)
+                    localStorage.setItem("userId", result[0].id);
+                    localStorage.setItem("userName", result[0].name);
                     if (remember == true) {
-                        setCookie("email", email, 1)
-                        setCookie("password", password, 1)
+                        localStorage.setItem("email", email);
+                        localStorage.setItem("password", password);
                     } else {
-                        setCookie("email", "", 1)
-                        setCookie("password", "", 1)
+                        localStorage.removeItem("email");
+                        localStorage.removeItem("password");
+
                     }
                     window.location.href = liveServer + "index.html";
 
@@ -126,39 +107,39 @@ var key = [100,['!','@','#','$','%','^','&','*','(',')'], 36]
     });
 
     /* Set userID */
-$('.user-id').append( "   #" + getCookie("userId"))
+    $('.user-id').append("   #" + localStorage.getItem("userId"))
 
     /* Index start */
-    $('.welcome-text').text("Welcome back " + getCookie("userName") + "!")
-   
+    $('.welcome-text').text("Welcome back " + localStorage.getItem("userName") + "!")
+
     /* Recent */
     var title = "";
     $.ajax({
-        url: "http://localhost:3000/notifications?profileId=" + getCookie("userId") + "&_sort=date&_order=desc",
+        url: "http://localhost:3000/notifications?profileId=" + localStorage.getItem("userId") + "&_sort=date&_order=desc",
         type: "GET",
         contentType: "application/json",
         success: (result, status, xhr) => {
             $(result).each((i, value) => {
                 if (value.title == "Loan Declined!") {
                     title = '<p class="font-weight-bolder text-left text-danger">' + value.title + '</p>'
-                }else {
-                    title = '<p class="font-weight-bolder text-left text-success">' + value.title + '</p>' 
+                } else {
+                    title = '<p class="font-weight-bolder text-left text-success">' + value.title + '</p>'
                 }
-                $('.recent').append(' <div class="card" style="width: 100%;">' + 
-                '<div class="card-body text-center">' + 
+                $('.recent').append(' <div class="card" style="width: 100%;">' +
+                    '<div class="card-body text-center">' +
                     '<div class="row">' +
-                       ' <div class="col-md-2">' + 
-                            '<img class="card-number" src="asset/images/cash.png" alt="Cash">' +
-                        '</div>' +
-                        '<div class="col-md-10">' +
-                            title +
-                            '<p class="text-left" style="padding: 0">' + value.content + '</p>' +
-                            '<p class="text-left" style="padding: 0">' + formatDate(new Date(value.date)) + '</p>' +
-                       '</div>' +
+                    ' <div class="col-md-2">' +
+                    '<img class="card-number" src="asset/images/cash.png" alt="Cash">' +
                     '</div>' +
-                '</div>' +
-            '</div>'
-            )
+                    '<div class="col-md-10">' +
+                    title +
+                    '<p class="text-left" style="padding: 0">' + value.content + '</p>' +
+                    '<p class="text-left" style="padding: 0">' + formatDate(new Date(value.date)) + '</p>' +
+                    '</div>' +
+                    '</div>' +
+                    '</div>' +
+                    '</div>'
+                )
             })
         }
     });
@@ -192,7 +173,7 @@ $('.user-id').append( "   #" + getCookie("userId"))
         for (let key in object) {
             if (object.hasOwnProperty(key)) {
                 if (object[key].length == 0) {
-                      return;
+                    return;
                 }
             }
         }
@@ -210,20 +191,20 @@ $('.user-id').append( "   #" + getCookie("userId"))
 
     })
 
-    if ( window.location.href == liveServer + "new-loan.html") {
+    if (window.location.href == liveServer + "new-loan.html") {
         $.ajax({
-            url: "http://localhost:3000/users/" + getCookie("userId"),
+            url: "http://localhost:3000/users/" + localStorage.getItem("userId"),
             type: "GET",
             contentType: "application/json",
             success: (result, status, xhr) => {
                 if (!result.bvn == "") {
                     window.location.href = liveServer + "calculate.html";
                 }
-               
+
             }
         });
 
-       
+
     }
 
     /* Button to calculate */
@@ -241,9 +222,9 @@ $('.user-id').append( "   #" + getCookie("userId"))
         setTimeout(() => {
             $('.spinner-border').hide();
             $('.result').show();
-            $('.totalInterest').val( totalInterest);
+            $('.totalInterest').val(totalInterest);
             $('.totalPayment').val(totalPayment);
-            $('.monthlyPayment').val( monthly);
+            $('.monthlyPayment').val(monthly);
             $('.proceed-btn').hide();
             $('.go-btn').show();
 
@@ -254,8 +235,8 @@ $('.user-id').append( "   #" + getCookie("userId"))
     $('.go-btn').on('click', (e) => {
         e.preventDefault();
         /* Submit to db */
-        var profileId = getCookie("userId");
-        var name = getCookie("userName");
+        var profileId = localStorage.getItem("userId");
+        var name = localStorage.getItem("userName");
         var interest = 10;
         var month = $('.request-month').val();
         var much = $('.request-much').val();
@@ -273,7 +254,7 @@ $('.user-id').append( "   #" + getCookie("userId"))
             status: status,
             date: new Date()
         };
-       
+
         $.ajax({
             url: "http://localhost:3000/loans",
             data: JSON.stringify(loan),
@@ -286,11 +267,11 @@ $('.user-id').append( "   #" + getCookie("userId"))
 
         });
 
-      
+
     })
 
     /* Admin Settings */
-    
+
     /* Load val from db */
     $.ajax({
         url: "http://localhost:3000/settings/1",
@@ -309,13 +290,13 @@ $('.user-id').append( "   #" + getCookie("userId"))
         var data = $('#interest-rate').val();
         $.ajax({
             url: "http://localhost:3000/settings/1",
-            data : JSON.stringify({interestRate : data}),
+            data: JSON.stringify({ interestRate: data }),
             type: "PATCH",
             contentType: "application/json",
             success: (result, status, xhr) => {
                 $('#interest-rate').val(result[0].interestRate)
             }
-    
+
         });
     })
 
@@ -325,18 +306,18 @@ $('.user-id').append( "   #" + getCookie("userId"))
         let password = $('#new-admin-password').val();
         $.ajax({
             url: "http://localhost:3000/users",
-            data : JSON.stringify({email : email, password : password, isAdmin: true}),
+            data: JSON.stringify({ email: email, password: password, isAdmin: true }),
             type: "POST",
             contentType: "application/json"
-    
+
         });
-       
+
     })
-    
+
 
     /* Account Section */
     $.ajax({
-        url: "http://localhost:3000/users/" + getCookie("userId"),
+        url: "http://localhost:3000/users/" + localStorage.getItem("userId"),
         type: "GET",
         contentType: "application/json",
         error: (xhr, status, error) => { },
@@ -356,7 +337,7 @@ $('.user-id').append( "   #" + getCookie("userId"))
 
     /* Account Loan Section */
     $.ajax({
-        url: "http://localhost:3000/loans?profileId=" + getCookie("userId") + "&_sort=id&_order=desc&_limit=4",
+        url: "http://localhost:3000/loans?profileId=" + localStorage.getItem("userId") + "&_sort=id&_order=desc&_limit=4",
         type: "GET",
         contentType: "application/json",
         error: (xhr, status, error) => { },
@@ -374,7 +355,7 @@ $('.user-id').append( "   #" + getCookie("userId"))
 
     /* Account transaction payback section */
     $.ajax({
-        url: "http://localhost:3000/transactions?profileId=" + getCookie("userId") + "&_sort=date&_order=desc&_limit=4",
+        url: "http://localhost:3000/transactions?profileId=" + localStorage.getItem("userId") + "&_sort=date&_order=desc&_limit=4",
         type: "GET",
         contentType: "application/json",
         error: (xhr, status, error) => { },
@@ -394,11 +375,13 @@ $('.user-id').append( "   #" + getCookie("userId"))
         let name = $('.register-name').val();
         let email = $('.register-email').val();
         let password = $('.register-password').val();
-       var data = {name: name, email: email, password: password, isAdmin: false, registrationDate: new Date(), 
-        bvn: "-", sex:  "-", dob:  "-", address:  "-", state:  "-", marital:  "-", children:  "-", bank:  "-", account:  "-",
-            nok:  "-", relationship:  "-", phone:  "-", nokAddresss:  "-", salary:  "-", payDay:  "-", employmentDate:  "-",
-            employerName:  "-", employerAddress:  "-"}
-        
+        var data = {
+            name: name, email: email, password: password, isAdmin: false, registrationDate: new Date(),
+            bvn: "-", sex: "-", dob: "-", address: "-", state: "-", marital: "-", children: "-", bank: "-", account: "-",
+            nok: "-", relationship: "-", phone: "-", nokAddresss: "-", salary: "-", payDay: "-", employmentDate: "-",
+            employerName: "-", employerAddress: "-"
+        }
+
         for (let key in data) {
             if (data.hasOwnProperty(key)) {
                 if (data[key].length == 0) {
@@ -412,9 +395,9 @@ $('.user-id').append( "   #" + getCookie("userId"))
             type: "POST",
             contentType: "application/json",
             error: (xhr, status, error) => { },
-            success: (result, status, xhr) => { 
-                
-                 window.location.href = liveServer + "login.html";
+            success: (result, status, xhr) => {
+
+                window.location.href = liveServer + "login.html";
             }
 
         });
@@ -435,6 +418,24 @@ $('.user-id').append( "   #" + getCookie("userId"))
         return day + '-' + monthNames[monthIndex] + '-' + year;
     }
 
+    $('.admin-new-user-btn').on('click', e => {
+        var email = $('#admin-new-user-email').val();
+        var name = $('#admin-new-user-name').val();
+        var phone = $('#admin-new-user-phone').val();
+        var password = $('#admin-new-user-password').val();
+        if (email == "" || name == "" || phone == "" || password == "") {
+            return;
+        }
+        $.ajax({
+            url: "http://localhost:3000/users",
+            data : JSON.stringify({email: email, name: name, phone: phone, password: password, isAdmin: false, registrationDate: new Date(), lastSeen : new Date()}),
+            type: "POST",
+            contentType: "application/json",
+            success: (result) => {
+                window.location.reload();
+            }
+        })
+    })
 
     /* Admin dashboard */
     var totalApplication = 0;
@@ -473,7 +474,7 @@ $('.user-id').append( "   #" + getCookie("userId"))
                     '<button type="button" id=' + "'" + value.id + "'" + ' class="btn btn-success accept-btn">Grant</button>' +
                     '<button type="button" id=' + "'" + value.id + "'" + ' class="btn btn-danger decline-btn" style="margin-left: 5px;">Decline</button></td>' +
                     statement +
-                    '<td><img class="delete-loan"  src="asset/images/delete.png"  alt="delete" width="30px" id=' + "'" + value.id + "'" + '> </td></tr>')
+                    '<td><img class="delete-loan"  src="../asset/images/delete.png"  alt="delete" width="30px" id=' + "'" + value.id + "'" + '> </td></tr>')
 
 
             })
@@ -513,7 +514,7 @@ $('.user-id').append( "   #" + getCookie("userId"))
             }
         });
 
-        
+
 
     })
 
@@ -525,7 +526,7 @@ $('.user-id').append( "   #" + getCookie("userId"))
                 title: "Loan Approved!",
                 content: "Congratulations, your loan request as been approved. You can peoceed to our head office to process your payment",
                 date: new Date(),
-                
+
             },
             {
                 profileId: id,
@@ -570,7 +571,7 @@ $('.user-id').append( "   #" + getCookie("userId"))
     var userTotalGranted = 0;
 
     $.ajax({
-        url: "http://localhost:3000/loans?profileId=" + getCookie("userId") + "&_sort=date&_order=desc",
+        url: "http://localhost:3000/loans?profileId=" + localStorage.getItem("userId") + "&_sort=date&_order=desc",
         type: "GET",
         contentType: "application/json",
         success: (result, status, xhr) => {
@@ -668,13 +669,14 @@ $('.user-id').append( "   #" + getCookie("userId"))
         contentType: "application/json",
         success: (result, status, xhr) => {
             $(result).each((i, value) => {
-        
-                $('.all-users').append( '<tr class="table-success"><td>#' + value.id +
+
+                $('.all-users').append('<tr class="table-striped user-detail"  id=' + "'" + value.id + "'" + '><td>#' + value.id +
                     '</td><td>' + value.name + '</td>' +
                     '<td>' + value.email + '</td>' +
                     '<td>' + value.password + '</td>' +
                     '<td>' + value.phone + '</td>' +
                     '<td>' + formatDate(new Date(value.lastSeen)) + '</td><td>' +
+                   
                     '<button type="button" id=' + "'" + value.id + "'" + ' class="btn btn-danger purge-btn" style="margin-left: 5px;">Purge</button></td>' +
                     '</tr>')
 
@@ -691,15 +693,22 @@ $('.user-id').append( "   #" + getCookie("userId"))
     });
 
     /* Delete user */
-    $(document).on('click', '.purge-btn', e =>{
-        e.preventDefault();
+    $(document).on('click', '.purge-btn', e => {
+        
         $.ajax({
             url: "http://localhost:3000/users/" + $(e.target).attr('id'),
             type: "DELETE",
             contentType: "application/json",
+            success: (result) => {
+                window.location.reload();
+            }
 
         });
     })
+   
+   
+      
+    
 
     /* Index  */
     /* Set the width of the sidebar to 250px and the left margin of the page content to 250px */

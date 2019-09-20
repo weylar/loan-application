@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Admin | Decaloan</title>
+    <title>Account | Decaloan</title>
     <link href="https://fonts.googleapis.com/css?family=Comfortaa&display=swap" rel="stylesheet">
     <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
         integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
@@ -24,6 +24,8 @@
         crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"
         integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <!-- Grapgh scripts -->
+    <!-- Resources -->
     <script src="https://www.amcharts.com/lib/4/core.js"></script>
     <script src="https://www.amcharts.com/lib/4/charts.js"></script>
     <script src="https://www.amcharts.com/lib/4/themes/dataviz.js"></script>
@@ -32,23 +34,21 @@
 
 <body>
     <nav class="navbar navbar-expand-sm bg-dark navbar-dark nav justify-content-end">
+
         <ul class="navbar-nav">
             <form class="form-inline">
                 <input class="form-control mr-sm-2" type="text" placeholder="Search">
             </form>
             <div style="margin-top: 7px">
-                <img src="../asset/images/account-icon.png" style="margin: 0 5px" alt="account" width="30px"
-                    height="30px">
-                <img src="../asset/images/message.png" style="margin: 0 5px" alt="message" width="30px" height="30px">
-                <img src="../asset/images/alarm.png" style="margin: 0 5px" alt="alarm" width="30px" height="30px">
+               <a href="account.html"> <img src="../asset/images/account-icon.png" style="margin: 0 5px" alt="account" width="30px" height="30px"></a>
+               <a href="inbox.html"><img src="../asset/images/message.png" style="margin: 0 5px" alt="message" width="30px" height="30px"></a>
+               <a href="inbox.html"><img src="../asset/images/alarm.png" style="margin: 0 5px" alt="alarm" width="30px" height="30px"></a>
             </div>
 
             <li class="nav-item">
-                <a class="nav-link" href="../login.html" class="logout">Logout</a>
+                <a class="nav-link" href="login.html">Logout</a>
             </li>
         </ul>
-
-        <!-- Navbar -->
     </nav>
     <div id="mySidenav" class="sidenav">
         <a href="dashboard.html" id="dashboard">Dashboard</a>
@@ -56,51 +56,52 @@
         <a href="settings.html" id="settings">Settings</a>
     </div>
     <div class="container" style="margin-left: 130px; margin-top: 20px">
-        <p class="display-4">Settings</p>
+        <p class="display-4">Account</p>
+        
         <hr>
-        <p>Make modifications to your database content</p>
-        <div class="container-fluid">
-            <h4 style="margin-top: 20px">Loan</h4>
-            <div class="form-group">
-                <div class="section-define">
-                    <label for="usr">Interest rate</label>
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text">%</span>
-                        </div>
-                        <input type="number" class="form-control" id="interest-rate" required>
-                    </div>
-                    <button type="submit" class="btn btn-primary settings-btn" style="margin-top: 30px;">Save</button>
-                </div>
+        <p>Here you have all your peronal details</p>
+        <!-- Demoraphic Information -->
+        <p class="subheading">Demographic Information</p>
+        <p class="font-weight-bold" style="font-size: 20px">Personal</p>
+        <p class="full-namee">Full name: </p>
+        <p class="addresss">Addresss: </p>
+        <p class="statee">State: </p>
+        <p class="subheading" style="margin-top: 10px">Employment</p>
+        <p class="employement-date">Employer Date: </p>
+        <p class="employer-name">Employer Name: </p>
+        <p class="employer-address">Employer Address: </p>
+        <p class="subheading loan-balance" style="margin-top: 10px">Loan Balance</p>
+        <table class="table table-hover table-striped">
+            <thead>
+                <tr>
+                    <th>Loan #ID</th>
+                    <th>Payback Amount</th>
+                    <th>Fees</th>
+                </tr>
+            </thead>
+            <tbody class="account-loan">
+               
+            </tbody>
+        </table>
+        <p class="subheading" style="margin-top: 10px">Payment Information</p>
+        <table class="table table-hover table-striped">
+            <thead>
+                <tr>
+                    <th>Payment #ID</th>
+                    <th>Payback Amount</th>
+                    <th>Date</th>
+                </tr>
+            </thead>
+            <tbody class="account-transaction">
+            </tbody>
+        </table>
+        <p class="subheading" style="margin-top: 10px">Account Opening Date</p>
+        <p class="registration-date"></p>
+    </div>
 
 
-                <h4 style="margin-top: 50px">Admin</h4>
-                <p>Add new admin</p>
 
-                <div class="section-define">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <label for="usr">Email</label>
-                            <div class="input-group mb-3">
-                                <input type="text" class="form-control" id="new-admin-email" required>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <label for="usr">Password</label>
-                            <div class="input-group mb-3">
-                                <input type="password" class="form-control" id="new-admin-password" required>
-                            </div>
-                        </div>   
-                    </div>
-                    <button type="submit" class="btn btn-primary new-admin-btn" style="margin-top: 30px;">Save</button>
-                </div>
-
-            </div>
-        </div>
-
-
-
-        <script src="../asset/script/app.js"></script>
+    <script src="asset/script/app.js"></script>
 </body>
 
 </html>
